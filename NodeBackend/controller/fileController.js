@@ -36,15 +36,17 @@ const getListFiles = (req, res) => {
     }
 
     let fileInfos = [];
-
-    files.forEach((file) => {
-      fileInfos.push({
-        name: file,
-        url: baseUrl + file,
+    
+    if (files != undefined) {
+      files.forEach((file) => {
+        fileInfos.push({
+          name: file,
+          url: baseUrl + file,
+        });
       });
-    });
-
-    res.status(200).send(fileInfos);
+    
+      res.status(200).send(fileInfos);
+    }else{res.status(300);}
   });
 };
 
