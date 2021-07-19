@@ -78,4 +78,14 @@ export class FilePageComponent implements OnInit {
   }
 
 
+  deleteMostRecentFile(): void {
+    this.fileService.deleteMostRecentFile().subscribe(success => { this.toastr.success('file deleted successfully'), this.fileInfos = this.fileService.getFiles(); }, error => { this.toastr.error('No files are uploaded yet!');});
+    this.currentFile = undefined;
+    this.progress = 0;
+    this.message = '';
+    //window.location.reload();
+    }
+
+
+
 }

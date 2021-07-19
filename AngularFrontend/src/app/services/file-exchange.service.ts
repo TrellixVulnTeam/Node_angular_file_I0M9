@@ -31,6 +31,8 @@ export class FileExchangeService {
     return this.http.get(`${this.baseUrl}/MostRecentFile`, { responseType: 'blob' });
   }
 
-
+  deleteMostRecentFile(): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deleteMostRecentFile`);
+  }
 
 }

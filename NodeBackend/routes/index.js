@@ -7,6 +7,7 @@ let routes = (app) => {
   router.get("/files", controller.getListFiles);
   router.get("/files/:name", controller.download);
   router.get("/MostRecentFile", controller.getMostRecentFile);
+   router.delete("/deleteMostRecentFile", controller.deleteMostRecentFile);
   app.use(router);
 };
 

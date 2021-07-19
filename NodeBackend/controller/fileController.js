@@ -46,7 +46,9 @@ const getListFiles = (req, res) => {
       });
     
       res.status(200).send(fileInfos);
-    }else{res.status(300);}
+    }else{ res.status(500).send({
+          message: "file was undefined!",
+        });}
   });
 };
 
@@ -74,14 +76,6 @@ const getMostRecentFile = (req, res) => {
         });
       }
   
-      //let fileInfos = [];
-  
-    //   files.forEach((file) => {
-    //     fileInfos.push({
-    //       name: file,
-    //       url: baseUrl + file,
-    //     });
-    //   });
     
     let mostRecentFile={'name':"",'url':""};
     for(i=0;i<files.length;i++){
@@ -104,6 +98,42 @@ const getMostRecentFile = (req, res) => {
 
 
 
+const deleteMostRecentFile = (req, res) => {
+    const directoryPath = __basedir + "/MyUploads/";
+  
+    fs.readdir(directoryPath, function (err, files) {
+      if (err) {
+        res.status(500).send({
+          message: "Unable to scan files!",
+        });
+      }
+  
+    
+    let mostRecentFile={'name':"",'url':""};
+    for(i=0;i<files.length;i++){
+        mostRecentFile['name']=files[i];
+        mostRecentFile['url']=baseUrl+files[i];
+    }
+     
+    try{
+    fs.unlinkSync(directoryPath+mostRecentFile['name']);
+     res.status(200).send({
+          message: "file is deleted with success!",
+        });
+
+    console.log("File is deleted.");
+} catch (error) {
+   res.status(500).send({
+          message: "file fails to be deleted!",
+        });
+    console.log(error);
+}
+      
+      
+    });
+  };
+
+
 
 
 
@@ -112,4 +142,5 @@ module.exports = {
   getListFiles,
   download,
 getMostRecentFile,
+deleteMostRecentFile
 };
